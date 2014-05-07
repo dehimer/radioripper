@@ -1,0 +1,30 @@
+var _ = require('underscore');
+
+var spawn     = require('child_process').spawn;
+var children  = [];
+
+var stopripping = function() {
+  console.log('killing', children.length, 'child processes');
+  children.forEach(function(child) {
+    console.log('station killed');
+    child.kill('SIGINT');
+  });
+};
+
+process.on('exit', stopripping);
+process.on('SIGINT', function() {
+    process.exit(0)
+});
+
+var musicdirpath = '../radio';
+var radiostationslist = [
+    {url:'http://stream.16bit.fm:8000/main_mp3_192'},
+    {url:'http://mp3.nashe.ru:80/rock-128.mp3'}
+];
+
+_.each(radiostationslist, function(station, index) {
+    console.log(station.url+' added to ripping');
+    children.push(spawn('streamripper', [ station.url, '-d', musicdirpath]));
+});
+
+setTimeout(function() { process.exit(0) }, 3000);

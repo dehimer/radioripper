@@ -1,0 +1,4 @@
+[
+    {"url":"http://stream.16bit.fm:8000/main_mp3_192", "onair":false, "stopped":true},
+    {"url":"http://mp3.nashe.ru:80/rock-128.mp3", "onair":true, "onefile":false}
+]
